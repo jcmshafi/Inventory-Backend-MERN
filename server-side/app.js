@@ -27,8 +27,8 @@ app.use(hpp())
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
-// Enable trust proxy to handle X-Forwarded-For header
-// app.set('trust proxy', true);
+//Enable trust proxy to handle X-Forwarded-For header
+app.set('trust proxy', true);
 // // Request Rate Limit for user click per second
 // const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 3000 })
 // app.use(limiter)
@@ -54,14 +54,14 @@ mongoose.connect(URI, OPTIONS)
 
 
 //serial 1:frontend to backend connection
-app.use(express.static('../client-side/dist'));
+// app.use(express.static('../client-side/dist'));
 
 //serial 2: API Routing end point Implement
 app.use("/api/v1",router)
 
 //serial 3: 404 route setup
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client-side", "dist", "index.html"));
+  // res.sendFile(path.resolve(__dirname, "client-side", "dist", "index.html"));
   res.status(404).json({status:"fail",data:"Not Found"})
 });
 
